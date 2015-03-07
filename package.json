@@ -1,0 +1,8 @@
+{
+  "name": "brightness-control",
+  "version": "0.0.1",
+  "dependencies": {
+    "node-static": "^0.7.6",
+    "socket.io": "^1.3.5"
+  }
+}

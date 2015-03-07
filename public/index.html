@@ -1,0 +1,43 @@
+<html>
+  <style>
+    .room, .mask {
+      width: 400px;
+      height: 300px;
+      margin-bottom: 16px;
+    }
+    .room {
+      background-image: url('bedroom.svg');
+      background-size: 400px 300px;
+      border: solid 4px #966;
+    }
+    .mask {
+      position: relative;
+      background-color: #000;   
+    }
+    input[type=range] {
+      width: 400px;
+    }
+  </style>
+<body>
+  <h3>Bedroom 1</h3>
+  <div class="room">
+    <div class="mask"></div>
+  </div>
+  <input type="range" min="0" max="100" value="0"/>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:8080');
+    var mask = document.querySelector('.mask');
+    var control = document.querySelector('input[type=range]');
+    
+    control.oninput = function (event) {
+      socket.emit('brightness-change-request', event.target.value);
+    };
+
+    socket.on('brightness-changed', function (value) {
+      control.value = value;
+      mask.style.opacity = 1 - value / 100;
+    });
+  </script>
+</body>
+</html>
