@@ -29,7 +29,7 @@
   </main>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var socket = io.connect('http://localhost:8080');
+    var socket = io.connect(window.location.origin);
     var room = document.querySelector('.room');
     var control = document.querySelector('input[type=range]');
     
