@@ -4,7 +4,7 @@ var socketIo = require('socket.io');
 var fileServer, server, io;
 var brightness = 80;
 
-fileServer = new static.Server('./public');
+fileServer = new static.Server(__dirname + '/public');
 
 server = http.createServer(function (request, response) {
   request.addListener('end', function () {
