@@ -1,33 +1,36 @@
 <html>
   <style>
-    .room, .mask {
-      width: 400px;
-      height: 300px;
-      margin-bottom: 16px;
+    body {
+      background-color: #4DB6AC;
+    }
+    main {
+      width: 80%;
+      max-width: 400px;
+      margin: 60px auto;
     }
     .room {
-      background-image: url('bedroom.svg');
-      background-size: 400px 300px;
-      border: solid 4px #966;
-    }
-    .mask {
-      position: relative;
-      background-color: #000;   
+      width: 100%;
+      height: 300px;
+      border: solid 4px #FFF;
+      border-radius: 5px;
+      margin-bottom: 16px;
+      background: radial-gradient(circle, hsl(54,100%,0%), hsl(36,100%,0%));
     }
     input[type=range] {
-      width: 400px;
+      width: 100%;
+      margin: 4px;
+      cursor: pointer;
     }
   </style>
 <body>
-  <h3>Bedroom 1</h3>
-  <div class="room">
-    <div class="mask"></div>
-  </div>
-  <input type="range" min="0" max="100" value="0"/>
+  <main>
+    <div class="room"></div>
+    <input type="range" min="0" max="100" value="0"/>
+  </main>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:8080');
-    var mask = document.querySelector('.mask');
+    var room = document.querySelector('.room');
     var control = document.querySelector('input[type=range]');
     
     control.oninput = function (event) {
@@ -35,8 +38,10 @@
     };
 
     socket.on('brightness-changed', function (value) {
-      control.value = value;
-      mask.style.opacity = 1 - value / 100;
+      room.style.background = 'radial-gradient(circle, hsl(54,100%,' 
+        + value + '%), hsl(36,100%,' 
+        + value / Math.pow(1.5, 100 / value) 
+        + '%))';
     });
   </script>
 </body>
