@@ -38,6 +38,7 @@
     };
 
     socket.on('brightness-changed', function (value) {
+      control.value = value;
       room.style.background = 'radial-gradient(circle, hsl(54,100%,' 
         + value + '%), hsl(36,100%,' 
         + value / Math.pow(1.5, 100 / value) 
